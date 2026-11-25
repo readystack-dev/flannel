@@ -1,0 +1,7 @@
+ca-certificates
+iproute2
+iptables
+nftables
+strongswan
+strongswan-swanctl
+wireguard-tools

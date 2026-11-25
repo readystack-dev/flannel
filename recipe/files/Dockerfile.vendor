@@ -1,0 +1,42 @@
+# =====================================================================
+# VENDOR STAGE (online) for flannel v0.28.10: does ALL the network work and
+# emits ./vendored for the hermetic --network=none build in
+# Dockerfile.offline.pinned (drive.py assemble_kit: --target export, docker cp).
+#   vendored/flannel-src          flannel at the pinned commit, `go mod vendor`
+#   vendored/iptables-wrappers-src kubernetes-sigs/iptables-wrappers at the commit
+#                                 upstream's images/Dockerfile checks out
+#   vendored/debs                 the Ubuntu 24.04 dist-upgrade closure plus the
+#                                 userland upstream's image ships (iptables legacy
+#                                 + nft, nftables, iproute2, strongSwan with the
+#                                 vici plugin, wireguard-tools, CA bundle)
+# A hand kit because flannel's image also carries a second upstream's binary
+# (iptables-wrapper), which the generated Go kit cannot express.
+# =====================================================================
+FROM golang:1.26.11-bookworm@sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0 AS govendor
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /src
+RUN git clone --depth 1 --branch v0.28.10 -q https://github.com/flannel-io/flannel . && \
+    test "$(git rev-parse HEAD)" = 0f70536f15f281279dab39fb9d575c646c7eea34 || \
+    { echo "flannel v0.28.10 is not the pinned commit 0f70536f15f281279dab39fb9d575c646c7eea34" >&2; exit 1; }
+ENV CGO_ENABLED=1 GOTOOLCHAIN=local GOWORK=off
+# CVE floors (strategies/flannel.json dep_bumps), the generator's floor(): raise a dependency to the fixed version,
+# never lower it; go mod tidy then reconciles the graph (gen_dockerfile render_l009_kit).
+RUN floor() { e=$(mktemp); cur=$(go list -mod=mod -m -f '{{.Version}}' "$1" 2>"$e") || { grep -q 'not a known dependency' "$e" && return 0; cat "$e" >&2; return 1; }; [ -n "$cur" ] || return 0; [ "$(printf '%s\n%s\n' "$cur" "$2" | sort -V | tail -1)" = "$cur" ] || go mod edit -require="$1@$2"; }; floor golang.org/x/net v0.62.0 && floor golang.org/x/crypto v0.56.0 && \
+    go mod tidy -e && go mod vendor && rm -f go.work go.work.sum && rm -rf .git
+# images/Dockerfile: git clone kubernetes-sigs/iptables-wrappers && git checkout bfef9e50...; it has no dependencies.
+WORKDIR /iptw
+RUN git init -q . && git remote add origin https://github.com/kubernetes-sigs/iptables-wrappers && \
+    git fetch -q --depth 1 origin bfef9e5087a198b50a4124bb9ce9d2c7c99025dd && git checkout -q FETCH_HEAD && \
+    test "$(git rev-parse HEAD)" = bfef9e5087a198b50a4124bb9ce9d2c7c99025dd && \
+    go mod tidy -e && go mod vendor && rm -rf .git
+FROM ubuntu:24.04@sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289 AS debvendor
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get -y --download-only --no-install-recommends dist-upgrade && \
+    apt-get -y --download-only --no-install-recommends install \
+      ca-certificates iproute2 iptables nftables strongswan strongswan-swanctl wireguard-tools && \
+    mkdir -p /debs && (cp /var/cache/apt/archives/*.deb /debs/ 2>/dev/null || true) && echo "vendored $(ls -1 /debs/*.deb 2>/dev/null | wc -l) debs"
+FROM scratch AS export
+COPY --from=govendor /src /flannel-src
+COPY --from=govendor /iptw /iptables-wrappers-src
+COPY --from=debvendor /debs /debs

@@ -1,0 +1,80 @@
+{
+  "schema": "kitforge.build_recipe.v1",
+  "slug": "flannel",
+  "image": "readystack/flannel:v0.28.10-CE-ubuntu24.04-r5",
+  "build_method": "source-rebuild-go",
+  "source": {
+    "repo": "https://github.com/flannel-io/flannel",
+    "ref": "v0.28.10",
+    "commit": "0f70536f15f281279dab39fb9d575c646c7eea34",
+    "builder_image": "golang:1.26.11-bookworm",
+    "go_module_root": "github.com/flannel-io/flannel",
+    "go_version_required": "1.26.0",
+    "source_date_epoch": 1795161037,
+    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r5 was cut (2026-11-20T07:50:37Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch).",
+    "build_env": {
+      "CGO_ENABLED": "1",
+      "GOOS": "linux",
+      "GOARCH": "amd64",
+      "GOTOOLCHAIN": "local",
+      "GOFLAGS": "-buildvcs=false"
+    },
+    "second_upstream": {
+      "repo": "https://github.com/kubernetes-sigs/iptables-wrappers",
+      "commit": "bfef9e5087a198b50a4124bb9ce9d2c7c99025dd",
+      "license": "Apache-2.0",
+      "_note": "The commit flannel v0.28.10's images/Dockerfile checks out; built as its Makefile `build` target does (CGO_ENABLED=0, -s -w -extldflags=-static -buildid=, -trimpath). It has no module dependencies."
+    },
+    "source_date_epoch_basis": "release-cut",
+    "commit_epoch": 1791471824
+  },
+  "binaries_from_source": [
+    {
+      "name": "flanneld",
+      "main_pkg": ".",
+      "cgo_enabled": 1,
+      "build_tags": [],
+      "build_flags": [
+        "-trimpath"
+      ],
+      "ldflags": "-s -w -X github.com/flannel-io/flannel/pkg/version.Version=@VERSION@",
+      "out_path": "/opt/bin/flanneld",
+      "verify_subcmd": "--version",
+      "_note": "Makefile dist/flanneld: CGO_ENABLED=1 on amd64 (pkg/backend/udp's C proxy needs cgo), -ldflags '-s -w -X github.com/flannel-io/flannel/pkg/version.Version=$(TAG) -extldflags \"-static\"' with TAG from git describe (v0.28.10). Upstream links musl statically on Alpine; here glibc is linked dynamically (the binary runs only in this image, on the glibc it was built against; a static glibc binary would dlopen NSS modules at run time). `flanneld --version` prints v0.28.10 to stderr."
+    },
+    {
+      "name": "install-conf",
+      "main_pkg": "./cmd/install_conf/",
+      "cgo_enabled": 0,
+      "build_tags": [],
+      "build_flags": [
+        "-trimpath"
+      ],
+      "ldflags": "",
+      "out_path": "/opt/bin/install-conf",
+      "verify_subcmd": "2>&1 | grep -q usage:",
+      "_note": "images/Dockerfile: CGO_ENABLED=0 go build -o dist/install-conf ./cmd/install_conf/ (no ldflags). The install-cni init container runs `/opt/bin/install-conf /etc/kube-flannel/cni-conf.json /etc/cni/net.d/10-flannel.conflist`."
+    },
+    {
+      "name": "iptables-wrapper",
+      "main_pkg": "github.com/kubernetes-sigs/iptables-wrappers",
+      "cgo_enabled": 0,
+      "build_tags": [],
+      "build_flags": [
+        "-trimpath"
+      ],
+      "ldflags": "-s -w -extldflags=-static -buildid=",
+      "out_path": "/usr/sbin/iptables-wrapper",
+      "_note": "From source.second_upstream; `iptables-wrapper install` runs at build time."
+    }
+  ],
+  "runtime_packages": [
+    "ca-certificates",
+    "iproute2",
+    "iptables",
+    "nftables",
+    "strongswan",
+    "strongswan-swanctl",
+    "wireguard-tools"
+  ]
+}

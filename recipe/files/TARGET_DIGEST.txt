@@ -1,0 +1,10 @@
+image_manifest_digest=sha256:75c7559e4aa18f44490fd82f8d8139108b66c5247ecae912e72ced996465340c
+config_digest=sha256:f76b69b709158b39c4cb52aecb661c5bb6e0af229f19adf1e297cd669721e96a
+tag=readystack/flannel:v0.28.10-CE-ubuntu24.04-r5
+probe_port=80
+probe_path=/
+probe_timeout=180
+probe_exec=/opt/bin/flanneld --version
+verify_boot=oneshot
+verify_oneshot_arg=--version
+verify_oneshot_expect=v0.28.10

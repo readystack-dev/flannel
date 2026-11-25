@@ -1,0 +1,110 @@
+{
+  "apt_refresh": [],
+  "binaries_from_component_images": [],
+  "binaries_from_source": [
+    {
+      "build_flags": [
+        "-trimpath"
+      ],
+      "build_tags": [],
+      "cgo_enabled": 1,
+      "ldflags": "-s -w -X github.com/flannel-io/flannel/pkg/version.Version=@VERSION@",
+      "main_pkg": ".",
+      "name": "flanneld",
+      "out_path": "/opt/bin/flanneld",
+      "verify_subcmd": "--version"
+    },
+    {
+      "build_flags": [
+        "-trimpath"
+      ],
+      "build_tags": [],
+      "cgo_enabled": 0,
+      "ldflags": "",
+      "main_pkg": "./cmd/install_conf/",
+      "name": "install-conf",
+      "out_path": "/opt/bin/install-conf",
+      "verify_subcmd": "2>&1 | grep -q usage:"
+    },
+    {
+      "build_flags": [
+        "-trimpath"
+      ],
+      "build_tags": [],
+      "cgo_enabled": 0,
+      "ldflags": "-s -w -extldflags=-static -buildid=",
+      "main_pkg": "github.com/kubernetes-sigs/iptables-wrappers",
+      "name": "iptables-wrapper",
+      "out_path": "/usr/sbin/iptables-wrapper"
+    }
+  ],
+  "build_method": "source-rebuild-go",
+  "chain_id": 1149,
+  "dep_bumps": [
+    {
+      "module": "golang.org/x/net",
+      "to": "v0.60.0",
+      "why": "CVE-2026-78663 (critical), CVE-2026-97032, CVE-2026-78669, CVE-2026-78660, CVE-2026-78659 (high): Scout on the first build (2026-10-28) found x/net 0.58.0 in flanneld, fixed in 0.60.0"
+    },
+    {
+      "module": "golang.org/x/crypto",
+      "to": "v0.56.0",
+      "why": "CVE-2026-78662, CVE-2026-56855 (high): Scout on the first build (2026-10-28) found x/crypto 0.55.0, fixed in 0.56.0"
+    }
+  ],
+  "expected_residuals": [],
+  "images": [
+    {
+      "digest": "sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0",
+      "ref": "golang:1.26.11-bookworm",
+      "role": "builder"
+    },
+    {
+      "digest": "sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0",
+      "ref": "golang:1.26.11-bookworm",
+      "role": "offline_builder"
+    },
+    {
+      "digest": "sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289",
+      "ref": "ubuntu:24.04",
+      "role": "base"
+    }
+  ],
+  "mod_replaces": [],
+  "runtime_packages": [
+    "ca-certificates",
+    "iproute2",
+    "iptables",
+    "nftables",
+    "strongswan",
+    "strongswan-swanctl",
+    "wireguard-tools"
+  ],
+  "schema": "kitforge.toolchain_lock.v1",
+  "slug": "flannel",
+  "source": {
+    "build_env": {
+      "CGO_ENABLED": "1",
+      "GOARCH": "amd64",
+      "GOFLAGS": "-buildvcs=false",
+      "GOOS": "linux",
+      "GOTOOLCHAIN": "local"
+    },
+    "builder_image": "golang:1.26.11-bookworm",
+    "commit": "0f70536f15f281279dab39fb9d575c646c7eea34",
+    "commit_epoch": 1791471824,
+    "go_module_root": "github.com/flannel-io/flannel",
+    "go_version_required": "1.26.0",
+    "ref": "v0.28.10",
+    "repo": "https://github.com/flannel-io/flannel",
+    "second_upstream": {
+      "commit": "bfef9e5087a198b50a4124bb9ce9d2c7c99025dd",
+      "license": "Apache-2.0",
+      "repo": "https://github.com/kubernetes-sigs/iptables-wrappers"
+    },
+    "source_date_epoch": 1795161037,
+    "source_date_epoch_basis": "release-cut",
+    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r5 was cut (2026-11-20T07:50:37Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch)."
+  },
+  "version": "v0.28.10"
+}
