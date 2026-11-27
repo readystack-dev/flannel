@@ -39,7 +39,7 @@
     }
   ],
   "build_method": "source-rebuild-go",
-  "chain_id": 1149,
+  "chain_id": 1293,
   "dep_bumps": [
     {
       "module": "golang.org/x/net",
@@ -102,9 +102,9 @@
       "license": "Apache-2.0",
       "repo": "https://github.com/kubernetes-sigs/iptables-wrappers"
     },
-    "source_date_epoch": 1795161037,
+    "source_date_epoch": 1795672824,
     "source_date_epoch_basis": "release-cut",
-    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r5 was cut (2026-11-20T07:50:37Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch)."
+    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r6 was cut (2026-11-26T06:00:24Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch)."
   },
   "version": "v0.28.10"
 }

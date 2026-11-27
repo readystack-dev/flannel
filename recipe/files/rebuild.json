@@ -21,8 +21,8 @@
     "context": ".",
     "dockerfile": "Dockerfile.offline.pinned",
     "mtime_policy": "clamp",
-    "source_date_epoch": 1795161037,
-    "tree_hash": "sha256:8b2eb84012dfb1baa88030d390091d17c46396985594fbe9d638d58a0ba8e3ff"
+    "source_date_epoch": 1795672824,
+    "tree_hash": "sha256:156366b4a2dd9746f3b8972c7f5c363bdce7cd657dd0be9422a27d902c9c8f73"
   },
   "probe": {
     "oneshot": {
@@ -34,8 +34,8 @@
   },
   "schema": "readystack-rebuild-bundle/v0.1",
   "subject": {
-    "config_digest": "sha256:f76b69b709158b39c4cb52aecb661c5bb6e0af229f19adf1e297cd669721e96a",
-    "image_manifest_digest": "sha256:75c7559e4aa18f44490fd82f8d8139108b66c5247ecae912e72ced996465340c",
-    "name": "docker.io/readystack/flannel:v0.28.10-CE-ubuntu24.04-r5"
+    "config_digest": "sha256:d2e6d5373c8aa552f7d1ac08c62bf5f24239ccbe9b6ebf56f574ee362135ddf5",
+    "image_manifest_digest": "sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a",
+    "name": "docker.io/readystack/flannel:v0.28.10-CE-ubuntu24.04-r6"
   }
 }

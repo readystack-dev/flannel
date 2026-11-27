@@ -1,4 +1,4 @@
-# Provenance — flannel (`v0.28.10-CE-ubuntu24.04-r5`)
+# Provenance — flannel (`v0.28.10-CE-ubuntu24.04-r6`)
 
 Every item below is copied from a record in this archive; the record is named in brackets.
 
@@ -13,18 +13,18 @@ Every item below is copied from a record in this archive; the record is named in
 
 - Method: `source-rebuild-go`; base image `ubuntu:24.04`
 - Compiled with `--network=none` from vendored source, dependencies and base images; BuildKit pinned to `moby/buildkit:v0.31.2` (shipped in `toolchain/`).
-- SOURCE_DATE_EPOCH: `1795161037` [`SOURCE_DATE_EPOCH.txt`]
+- SOURCE_DATE_EPOCH: `1795672824` [`SOURCE_DATE_EPOCH.txt`]
 - Frozen inputs: [`docs/provenance/FREEZE_MANIFEST.json`], build recipe: [`docs/provenance/BUILD_RECIPE.json`].
 
 ## Output
 
-- Published image: `readystack/flannel:v0.28.10-CE-ubuntu24.04-r5` — index digest `sha256:45b7c97dae65dd8acf6806f47d0ff2a36e0e371ce4fa69cc427dac90b2b134b1` [`docs/provenance/LOCKED_DIGEST.txt`]
-- linux/amd64 image digest `sha256:75c7559e4aa18f44490fd82f8d8139108b66c5247ecae912e72ced996465340c` — reproduced from this archive before publishing [`docs/provenance/REPRO_VERIFICATION.json`].
+- Published image: `readystack/flannel:v0.28.10-CE-ubuntu24.04-r6` — index digest `sha256:70161a5be2bd9594ae1f0aa56406433a52cbf40a848e51edfc1805861521f974` [`docs/provenance/LOCKED_DIGEST.txt`]
+- linux/amd64 image digest `sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a` — reproduced from this archive before publishing [`docs/provenance/REPRO_VERIFICATION.json`].
 
 ## Attestations and signature
 
 - SBOM + SLSA provenance attached to the image: attached: an SPDX SBOM and SLSA v1 provenance [`docs/provenance/SCOUT_VERDICT.json`]
-- cosign signature by the ReadyStack release key: verified before publishing. Check it: `cosign verify --key https://readystack.dev/keys/cosign.pub readystack/flannel:v0.28.10-CE-ubuntu24.04-r5`
+- cosign signature by the ReadyStack release key: verified before publishing. Check it: `cosign verify --key https://readystack.dev/keys/cosign.pub readystack/flannel:v0.28.10-CE-ubuntu24.04-r6`
 
 ## Pinned inputs, and why
 
@@ -32,5 +32,5 @@ Every item below is copied from a record in this archive; the record is named in
 
 ## Build trail
 
-- How this release passed through the ReadyStack harness, record by record (every chain, drive, stage, review round, defect and check, each naming the record it is copied from): `ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.trail.json`, published beside this archive and signed with the release key (`ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.trail.json.sigstore`), and readable at https://readystack.dev/products/flannel/trail/v0.28.10-CE-ubuntu24.04-r5.
+- How this release passed through the ReadyStack harness, record by record (every chain, drive, stage, review round, defect and check, each naming the record it is copied from): `ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.trail.json`, published beside this archive and signed with the release key (`ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.trail.json.sigstore`), and readable at https://readystack.dev/products/flannel/trail/v0.28.10-CE-ubuntu24.04-r6.
 

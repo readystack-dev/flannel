@@ -1,6 +1,6 @@
-image_manifest_digest=sha256:75c7559e4aa18f44490fd82f8d8139108b66c5247ecae912e72ced996465340c
-config_digest=sha256:f76b69b709158b39c4cb52aecb661c5bb6e0af229f19adf1e297cd669721e96a
-tag=readystack/flannel:v0.28.10-CE-ubuntu24.04-r5
+image_manifest_digest=sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a
+config_digest=sha256:d2e6d5373c8aa552f7d1ac08c62bf5f24239ccbe9b6ebf56f574ee362135ddf5
+tag=readystack/flannel:v0.28.10-CE-ubuntu24.04-r6
 probe_port=80
 probe_path=/
 probe_timeout=180

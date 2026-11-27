@@ -6,13 +6,13 @@
 
 # flannel: ReadyStack build kit
 
-The offline build kit for the Docker image `readystack/flannel:v0.28.10-CE-ubuntu24.04-r5`. It holds what the image is built from (upstream source, base images, toolchain, pinned dependencies) and the documents, so the image can be rebuilt with no network access (`docker build --network=none`).
+The offline build kit for the Docker image `readystack/flannel:v0.28.10-CE-ubuntu24.04-r6`. It holds what the image is built from (upstream source, base images, toolchain, pinned dependencies) and the documents, so the image can be rebuilt with no network access (`docker build --network=none`).
 
-- Release: [v0.28.10-CE-ubuntu24.04-r5](https://github.com/readystack-dev/flannel/releases/tag/v0.28.10-CE-ubuntu24.04-r5)
-- Image: [`docker.io/readystack/flannel:v0.28.10-CE-ubuntu24.04-r5`](https://hub.docker.com/r/readystack/flannel/tags), manifest digest `sha256:75c7559e4aa18f44490fd82f8d8139108b66c5247ecae912e72ced996465340c`
+- Release: [v0.28.10-CE-ubuntu24.04-r6](https://github.com/readystack-dev/flannel/releases/tag/v0.28.10-CE-ubuntu24.04-r6)
+- Image: [`docker.io/readystack/flannel:v0.28.10-CE-ubuntu24.04-r6`](https://hub.docker.com/r/readystack/flannel/tags), manifest digest `sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a`
 - Product page: https://readystack.dev/products/flannel
 - Source and build recipe: https://readystack.dev/products/flannel/recipe
-- Build trail: https://readystack.dev/products/flannel/trail/v0.28.10-CE-ubuntu24.04-r5
+- Build trail: https://readystack.dev/products/flannel/trail/v0.28.10-CE-ubuntu24.04-r6
 - Defects: this repository's Issues (defects recorded from 25 November 2026 on) and https://readystack.dev/defects.html?product=flannel
 
 ## The image
@@ -31,12 +31,12 @@ From the upstream project's own description: https://github.com/flannel-io/flann
 
 ## This release
 
-- Docker Scout policy grade at release: **A** (94%), graded 2026-11-20 with `docker scout policy` (CLI 1.26.0, docker-default configuration).
+- Docker Scout policy grade at release: **A** (94%), graded 2026-11-27 with `docker scout policy` (CLI 1.26.0, docker-default configuration).
   - Docker Scout counts 106 packages with copyleft licences (GPL, LGPL, MPL), all of them operating-system packages (it counts only packages whose licence it can read; the SBOM lists every component).
 - Signed with ReadyStack's release key (fingerprint `04daa92344a52dbc`): https://readystack.dev/keys/cosign.pub.
 - Runs as a non-root user (`flannel`).
 - Attestations on the image: an SPDX SBOM and SLSA provenance v1.
-- Rebuilt from this kit with network egress blocked on 2026-11-20; the rebuilt image digest is the published one.
+- Rebuilt from this kit with network egress blocked on 2026-11-27; the rebuilt image digest is the published one.
 - Base: Ubuntu 24.04.
 
 The current grade, measured again every day, is on https://readystack.dev/products/flannel.
@@ -45,7 +45,7 @@ flannel is distributed under its upstream licence (Apache-2.0); the kit contains
 
 ## Download
 
-From the [v0.28.10-CE-ubuntu24.04-r5 release](https://github.com/readystack-dev/flannel/releases/tag/v0.28.10-CE-ubuntu24.04-r5): `ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.tar.gz` (440.3 MB), SHA-256 `d35079c732a49fc5017273ecde47d1133237ca5b631d0f6bf15860c41e23a1f9`.
+From the [v0.28.10-CE-ubuntu24.04-r6 release](https://github.com/readystack-dev/flannel/releases/tag/v0.28.10-CE-ubuntu24.04-r6): `ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.tar.gz` (440.3 MB), SHA-256 `68aa9e313cf24ef59ca6fb6e299f86ce7186564ae194f473a08c4e8e1e0e242e`.
 
 ```sh
 sha256sum --check --ignore-missing SHA256SUMS
@@ -57,18 +57,18 @@ The rebuild statement is signed with the ReadyStack release key. Check the signa
 
 ```sh
 cosign verify-blob --key https://readystack.dev/keys/cosign.pub \
-  --bundle ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.rebuild.json.sigstore ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.rebuild.json
+  --bundle ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.rebuild.json.sigstore ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.rebuild.json
 ```
 
 Unpack with `-p` so file modes are kept, then follow the kit's own README.md and docs/REBUILD.md:
 
 ```sh
-tar -xpzf ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.tar.gz
-cd v0.28.10-CE-ubuntu24.04-r5
+tar -xpzf ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.tar.gz
+cd v0.28.10-CE-ubuntu24.04-r6
 less README.md docs/REBUILD.md
 ```
 
-The build trail (`ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r5.trail.json`, signed the same way, and its Markdown copy) records how this release was built and checked.
+The build trail (`ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.trail.json`, signed the same way, and its Markdown copy) records how this release was built and checked.
 
 ## This repository
 

@@ -1,7 +1,7 @@
 {
   "schema": "kitforge.build_recipe.v1",
   "slug": "flannel",
-  "image": "readystack/flannel:v0.28.10-CE-ubuntu24.04-r5",
+  "image": "readystack/flannel:v0.28.10-CE-ubuntu24.04-r6",
   "build_method": "source-rebuild-go",
   "source": {
     "repo": "https://github.com/flannel-io/flannel",
@@ -10,8 +10,8 @@
     "builder_image": "golang:1.26.11-bookworm",
     "go_module_root": "github.com/flannel-io/flannel",
     "go_version_required": "1.26.0",
-    "source_date_epoch": 1795161037,
-    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r5 was cut (2026-11-20T07:50:37Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch).",
+    "source_date_epoch": 1795672824,
+    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r6 was cut (2026-11-26T06:00:24Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch).",
     "build_env": {
       "CGO_ENABLED": "1",
       "GOOS": "linux",
