@@ -1,5 +1,5 @@
 # =====================================================================
-# VENDOR STAGE (online) for flannel v0.28.10: does ALL the network work and
+# VENDOR STAGE (online) for flannel v0.28.11: does ALL the network work and
 # emits ./vendored for the hermetic --network=none build in
 # Dockerfile.offline.pinned (drive.py assemble_kit: --target export, docker cp).
 #   vendored/flannel-src          flannel at the pinned commit, `go mod vendor`
@@ -15,9 +15,9 @@
 FROM golang:1.26.11-bookworm@sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0 AS govendor
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
-RUN git clone --depth 1 --branch v0.28.10 -q https://github.com/flannel-io/flannel . && \
-    test "$(git rev-parse HEAD)" = 0f70536f15f281279dab39fb9d575c646c7eea34 || \
-    { echo "flannel v0.28.10 is not the pinned commit 0f70536f15f281279dab39fb9d575c646c7eea34" >&2; exit 1; }
+RUN git clone --depth 1 --branch v0.28.11 -q https://github.com/flannel-io/flannel . && \
+    test "$(git rev-parse HEAD)" = 6fe2579f6588feaaf44fc9f576c3f66af2c2e822 || \
+    { echo "flannel v0.28.11 is not the pinned commit 6fe2579f6588feaaf44fc9f576c3f66af2c2e822" >&2; exit 1; }
 ENV CGO_ENABLED=1 GOTOOLCHAIN=local GOWORK=off
 # CVE floors (strategies/flannel.json dep_bumps), the generator's floor(): raise a dependency to the fixed version,
 # never lower it; go mod tidy then reconciles the graph (gen_dockerfile render_l009_kit).

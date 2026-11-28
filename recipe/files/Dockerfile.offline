@@ -1,5 +1,5 @@
 # =====================================================================
-# L-009 HERMETIC OFFLINE BUILD (flannel v0.28.10) — the canonical,
+# L-009 HERMETIC OFFLINE BUILD (flannel v0.28.11) — the canonical,
 # attestation-producing build (build_kit: buildx --network=none --attest ...).
 # Follows upstream's images/Dockerfile at the pinned commit:
 #   /opt/bin/flanneld        make dist/flanneld: CGO_ENABLED=1 on amd64 (the UDP
@@ -20,10 +20,10 @@
 FROM golang:1.26.11-bookworm@sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0 AS build_flanneld
 WORKDIR /src
 COPY vendored/flannel-src/ .
-ENV CGO_ENABLED=1 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=vendor -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795672824
-RUN go build -trimpath -ldflags='-s -w -X github.com/flannel-io/flannel/pkg/version.Version=v0.28.10' -o /flanneld . && \
+ENV CGO_ENABLED=1 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=vendor -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795849894
+RUN go build -trimpath -ldflags='-s -w -X github.com/flannel-io/flannel/pkg/version.Version=v0.28.11' -o /flanneld . && \
     /flanneld --version > /tmp/flanneld.version 2>&1; cat /tmp/flanneld.version; \
-    grep -qx 'v0.28.10' /tmp/flanneld.version || { echo "built flanneld does not report v0.28.10" >&2; exit 1; }
+    grep -qx 'v0.28.11' /tmp/flanneld.version || { echo "built flanneld does not report v0.28.11" >&2; exit 1; }
 # Fail closed on a stale toolchain (the traefik chain-491 lesson): the binary records the Go it was built with.
 RUN v=$(go version /flanneld | awk '{print $2}') && echo "flanneld built with $v" && \
     [ "$(printf '%s\n%s\n' go1.26.11 "$v" | sort -V | head -n1)" = go1.26.11 ] || \
@@ -32,7 +32,7 @@ RUN v=$(go version /flanneld | awk '{print $2}') && echo "flanneld built with $v
 FROM golang:1.26.11-bookworm@sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0 AS build_install_conf
 WORKDIR /src
 COPY vendored/flannel-src/ .
-ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=vendor -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795672824
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=vendor -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795849894
 RUN go build -trimpath -o /install-conf ./cmd/install_conf/ && \
     { /install-conf 2>&1 | grep -q 'usage:'; } || { echo "built install-conf does not run" >&2; exit 1; }
 
@@ -41,7 +41,7 @@ WORKDIR /src
 COPY vendored/iptables-wrappers-src/ .
 # iptables-wrappers requires no module (go.mod has no require), so there is no vendor/ to read: -mod=mod with
 # GOPROXY=off resolves nothing over the network and fails if a requirement ever appears.
-ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=mod -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795672824
+ENV CGO_ENABLED=0 GOTOOLCHAIN=local GOWORK=off GOFLAGS="-mod=mod -buildvcs=false" GOPROXY=off SOURCE_DATE_EPOCH=1795849894
 RUN ! grep -q '^require' go.mod && \
     go build -ldflags='-s -w -extldflags="-static" -buildid=""' -trimpath -o /iptables-wrapper github.com/kubernetes-sigs/iptables-wrappers
 
@@ -53,7 +53,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # freezes the file itself; a freeze in a later RUN cannot change an earlier layer. r2 (live) ran the dpkg RUN before
 # this ARG: its layer 2 holds strongswan:20764, its build day, under a SOURCE_DATE_EPOCH of day 20734 (the argocd r2
 # finding, chain 981). ARG, never ENV.
-ARG SOURCE_DATE_EPOCH=1795672824
+ARG SOURCE_DATE_EPOCH=1795849894
 # Offline apt: dpkg-install the vendored closure (CVE upgrades + runtime pkgs).
 # --skip-same-version passes + configure-a; fails unless every vendored deb is ii at its version (L-A106).
 # vendored/debs: bind-mounted (read-only), so never a layer of the image (kit migration vendored-bind-mount)
@@ -92,7 +92,12 @@ ENTRYPOINT ["/opt/bin/flanneld"]
 # scripts/retarget.py re-renders it with every retarget. Never edit it by hand.
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.title="flannel"
-LABEL org.opencontainers.image.source="https://github.com/flannel-io/flannel"
-LABEL org.opencontainers.image.version="v0.28.10-CE-ubuntu24.04-r6"
-LABEL org.opencontainers.image.revision="0f70536f15f281279dab39fb9d575c646c7eea34"
+LABEL org.opencontainers.image.source="https://github.com/readystack-dev/flannel"
+LABEL org.opencontainers.image.version="v0.28.11-CE-ubuntu24.04-r1"
+LABEL org.opencontainers.image.revision="6fe2579f6588feaaf44fc9f576c3f66af2c2e822"
+LABEL readystack.upstream.source="https://github.com/flannel-io/flannel"
+LABEL org.opencontainers.image.url="https://readystack.dev/products/flannel"
+LABEL org.opencontainers.image.documentation="https://github.com/readystack-dev/flannel#readme"
+LABEL org.opencontainers.image.authors="ReadyStack <contact@readystack.dev>"
+LABEL org.opencontainers.image.vendor="ReadyStack.dev"
 # <<< readystack OCI labels

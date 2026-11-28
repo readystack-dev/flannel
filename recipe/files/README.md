@@ -1,6 +1,6 @@
-# Build kit for `readystack/flannel:v0.28.10-CE-ubuntu24.04-r6`
+# Build kit for `readystack/flannel:v0.28.11-CE-ubuntu24.04-r1`
 
-This archive rebuilds the linux/amd64 image `readystack/flannel:v0.28.10-CE-ubuntu24.04-r6` from its own contents, with the network off, and checks the result against the image digest ReadyStack published, `sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a` (also in `TARGET_DIGEST.txt`). It holds everything the build needs, not the image itself.
+This archive rebuilds the linux/amd64 image `readystack/flannel:v0.28.11-CE-ubuntu24.04-r1` from its own contents, with the network off, and checks the result against the image digest ReadyStack published, `sha256:de778b27a17892ff10757cbf40500ccb3b33f9deb54334ced57741d3a210caa0` (also in `TARGET_DIGEST.txt`). It holds everything the build needs, not the image itself.
 
 Every release of this kit, its recipe and its defect issues are published at https://github.com/readystack-dev/flannel; the product page is https://readystack.dev/products/flannel.
 
@@ -9,8 +9,8 @@ Every release of this kit, its recipe and its defect issues are published at htt
 You need linux/amd64 Docker with `buildx` 0.30 or later, `jq` and `tar` (docs/REBUILD.md lists the rest, if any, and the hardware ReadyStack used).
 
 ```
-tar -xpzf ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.tar.gz    # -p keeps each file's mode
-cd v0.28.10-CE-ubuntu24.04-r6
+tar -xpzf ReadyStack-flannel-v0.28.11-CE-ubuntu24.04-r1.tar.gz    # -p keeps each file's mode
+cd v0.28.11-CE-ubuntu24.04-r1
 ./BUILD_OFFLINE.sh            # builds with the network off, from this archive alone
 ./VERIFY_OFFLINE.sh           # compares the rebuilt digest with the published one, then checks the image
 ```
@@ -25,8 +25,8 @@ ReadyStack signs this archive's `rebuild.json` with its release key once the fin
 
 ```
 curl -fsSLo ../cosign.pub https://readystack.dev/keys/cosign.pub
-curl -fsSLo ../ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.rebuild.json.sigstore https://readystack.dev/api/kit/flannel/v0.28.10-CE-ubuntu24.04-r6/files/ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.rebuild.json.sigstore
-python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-flannel-v0.28.10-CE-ubuntu24.04-r6.rebuild.json.sigstore
+curl -fsSLo ../ReadyStack-flannel-v0.28.11-CE-ubuntu24.04-r1.rebuild.json.sigstore https://readystack.dev/api/kit/flannel/v0.28.11-CE-ubuntu24.04-r1/files/ReadyStack-flannel-v0.28.11-CE-ubuntu24.04-r1.rebuild.json.sigstore
+python3 docs/rebuild-bundle/rebuild_bundle.py validate . --key ../cosign.pub --signature ../ReadyStack-flannel-v0.28.11-CE-ubuntu24.04-r1.rebuild.json.sigstore
 ```
 
 `validate` needs Python 3 and cosign. Without building anything it checks the signature over `rebuild.json`, every file's checksum, the tree hash over every file's path, mode and content, each base image layout's digest and the builder archive. `verify`, with the same arguments, also rebuilds with the builder's network egress blocked and exits 0 only when the rebuilt digest is the published one (docs/REBUILD.md).

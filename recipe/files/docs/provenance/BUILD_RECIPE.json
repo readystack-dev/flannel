@@ -1,17 +1,17 @@
 {
   "schema": "kitforge.build_recipe.v1",
   "slug": "flannel",
-  "image": "readystack/flannel:v0.28.10-CE-ubuntu24.04-r6",
+  "image": "readystack/flannel:v0.28.11-CE-ubuntu24.04-r1",
   "build_method": "source-rebuild-go",
   "source": {
     "repo": "https://github.com/flannel-io/flannel",
-    "ref": "v0.28.10",
-    "commit": "0f70536f15f281279dab39fb9d575c646c7eea34",
+    "ref": "v0.28.11",
+    "commit": "6fe2579f6588feaaf44fc9f576c3f66af2c2e822",
     "builder_image": "golang:1.26.11-bookworm",
     "go_module_root": "github.com/flannel-io/flannel",
     "go_version_required": "1.26.0",
-    "source_date_epoch": 1795672824,
-    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r6 was cut (2026-11-26T06:00:24Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch).",
+    "source_date_epoch": 1795849894,
+    "source_date_epoch_provenance": "the time release v0.28.11-CE-ubuntu24.04-r1 was cut (2026-11-28T07:11:34Z), by scripts/retarget.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 6fe2579f6588, dated 2026-11-19T17:07:32Z (source.commit_epoch).",
     "build_env": {
       "CGO_ENABLED": "1",
       "GOOS": "linux",
@@ -26,7 +26,7 @@
       "_note": "The commit flannel v0.28.10's images/Dockerfile checks out; built as its Makefile `build` target does (CGO_ENABLED=0, -s -w -extldflags=-static -buildid=, -trimpath). It has no module dependencies."
     },
     "source_date_epoch_basis": "release-cut",
-    "commit_epoch": 1791471824
+    "commit_epoch": 1795108052
   },
   "binaries_from_source": [
     {

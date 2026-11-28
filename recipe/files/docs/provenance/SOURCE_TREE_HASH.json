@@ -2,8 +2,8 @@
   "schema": "kitforge.source_tree_hash.v1",
   "slug": "flannel",
   "repo": "https://github.com/flannel-io/flannel",
-  "ref": "v0.28.10",
-  "commit": "0f70536f15f281279dab39fb9d575c646c7eea34",
+  "ref": "v0.28.11",
+  "commit": "6fe2579f6588feaaf44fc9f576c3f66af2c2e822",
   "tree_listing_sha256": "bbe66e8e8707707772a4adfd0736949bd0a08956e8fc55fadf84c9ff7fd05e33",
   "file_count": 233
 }

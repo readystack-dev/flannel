@@ -39,7 +39,7 @@
     }
   ],
   "build_method": "source-rebuild-go",
-  "chain_id": 1293,
+  "chain_id": 1308,
   "dep_bumps": [
     {
       "module": "golang.org/x/net",
@@ -91,20 +91,20 @@
       "GOTOOLCHAIN": "local"
     },
     "builder_image": "golang:1.26.11-bookworm",
-    "commit": "0f70536f15f281279dab39fb9d575c646c7eea34",
-    "commit_epoch": 1791471824,
+    "commit": "6fe2579f6588feaaf44fc9f576c3f66af2c2e822",
+    "commit_epoch": 1795108052,
     "go_module_root": "github.com/flannel-io/flannel",
     "go_version_required": "1.26.0",
-    "ref": "v0.28.10",
+    "ref": "v0.28.11",
     "repo": "https://github.com/flannel-io/flannel",
     "second_upstream": {
       "commit": "bfef9e5087a198b50a4124bb9ce9d2c7c99025dd",
       "license": "Apache-2.0",
       "repo": "https://github.com/kubernetes-sigs/iptables-wrappers"
     },
-    "source_date_epoch": 1795672824,
+    "source_date_epoch": 1795849894,
     "source_date_epoch_basis": "release-cut",
-    "source_date_epoch_provenance": "the time release v0.28.10-CE-ubuntu24.04-r6 was cut (2026-11-26T06:00:24Z), by scripts/rerelease-agenda.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 0f70536f15f2, dated 2026-10-08T15:03:44Z (source.commit_epoch)."
+    "source_date_epoch_provenance": "the time release v0.28.11-CE-ubuntu24.04-r1 was cut (2026-11-28T07:11:34Z), by scripts/retarget.py: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit 6fe2579f6588, dated 2026-11-19T17:07:32Z (source.commit_epoch)."
   },
-  "version": "v0.28.10"
+  "version": "v0.28.11"
 }

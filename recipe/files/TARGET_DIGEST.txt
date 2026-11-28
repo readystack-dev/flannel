@@ -1,10 +1,10 @@
-image_manifest_digest=sha256:4b130f1f949e6e5a3dad42a9f534d5e0c031b8e56ba1b7a39e5d0287bd83c72a
-config_digest=sha256:d2e6d5373c8aa552f7d1ac08c62bf5f24239ccbe9b6ebf56f574ee362135ddf5
-tag=readystack/flannel:v0.28.10-CE-ubuntu24.04-r6
+image_manifest_digest=sha256:de778b27a17892ff10757cbf40500ccb3b33f9deb54334ced57741d3a210caa0
+config_digest=sha256:e43ceeb3355295a1fe4c74ad402e956017b1ac5d2f738cbdb40c6cc51996778d
+tag=readystack/flannel:v0.28.11-CE-ubuntu24.04-r1
 probe_port=80
 probe_path=/
 probe_timeout=180
 probe_exec=/opt/bin/flanneld --version
 verify_boot=oneshot
 verify_oneshot_arg=--version
-verify_oneshot_expect=v0.28.10
+verify_oneshot_expect=v0.28.11
